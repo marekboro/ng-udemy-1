@@ -1,9 +1,22 @@
-<p>servers works!</p>
+<label> Server Name </label>
+<!-- <input
+    type="text" 
+    class="form-control"
+    (input)="onUpdateServerName($event)"
+> -->
+<input type="text" class="form-control" [(ngModel)]="serverName">
 
-<button 
-    class="btn btn-primary"
-    [disabled]="!allowNewServer"  >Add server</button>
+
+<p>{{serverName}}</p>
+
+<button class="btn btn-primary" [disabled]="!allowNewServer || serverName==='' " (click)="onCreateServer()">Add
+    server</button>
 <p>{{allowNewServer }}</p>
-<p [innerText]="allowNewServer" ></p>
-<div app-server></div>
-<div app-server></div>
+<p [innerText]="allowNewServer"></p>
+<br>
+<p [class]="cretionClass"> {{serverCreationStatus }} </p>
+<p class="serverCreationStatus2" *ngIf="serverCreated; else noServer"> 2: Server {{serverName}} was created </p>
+<ng-template #noServer>
+    <p class="serverCreationStatus1"> 2: No Server was created </p>
+</ng-template> 
+<div app-server *ngFor="let server of servers"></div>
